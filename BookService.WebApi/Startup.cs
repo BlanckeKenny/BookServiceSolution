@@ -31,6 +31,8 @@ namespace BookService.WebApi
             services.AddDbContext<BookServiceContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Bookservice")));
             services.AddScoped<BookRepository>();
+            services.AddScoped<PublisherRepository>();
+            services.AddScoped<AuthorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookService.WebApi.DTO;
 using BookService.WebApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookService.WebApi.Repositories
 {
@@ -18,7 +19,10 @@ namespace BookService.WebApi.Repositories
 
         public List<Book> List()
         {
-            return db.Books.ToList();
+            return db.Books
+                .Include(a => a.Author)
+                .Include(a => a.Publisher)
+                .ToList();
         }
 
         public List<BookBasic> ListbBasic()
@@ -29,6 +33,11 @@ namespace BookService.WebApi.Repositories
                 Id = b.Id,
                 Title = b.Title
             }).ToList();
+        }
+
+        public List<Book> GetById(int id)
+        {
+            return db.Books.Where(a => a.Id == id).ToList();
         }
 
 
