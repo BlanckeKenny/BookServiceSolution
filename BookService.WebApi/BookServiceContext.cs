@@ -16,7 +16,7 @@ namespace BookService.WebApi
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Publisher>()
+           modelBuilder.Entity<Publisher>()
                 .ToTable("Publisher")
                 .HasData(
                     new Publisher
@@ -144,7 +144,20 @@ namespace BookService.WebApi
                         Price = 18M,
                         Year = 2010
                     });
+            modelBuilder.Entity<Book>()
+                .Property(p => p.Created)
+                .HasDefaultValueSql("GETDATE()")
+                .ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Publisher>()
+                .Property(p => p.Created)
+                .HasDefaultValueSql("GETDATE()")
+                .ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Author>()
+                .Property(p => p.Created)
+                .HasDefaultValueSql("GETDATE()")
+                .ValueGeneratedOnAddOrUpdate();
         }
+
 
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Author> Authors { get; set; }

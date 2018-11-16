@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookService.WebApi.Migrations
 {
     [DbContext(typeof(BookServiceContext))]
-    [Migration("20181113185327_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20181116092814_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,10 @@ namespace BookService.WebApi.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
+                    b.Property<DateTime?>("Created")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
@@ -38,9 +42,9 @@ namespace BookService.WebApi.Migrations
                     b.ToTable("Author");
 
                     b.HasData(
-                        new { Id = 1, BirthDate = new DateTime(1980, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "James", LastName = "Sharp" },
-                        new { Id = 2, BirthDate = new DateTime(1992, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Sophie", LastName = "Netty" },
-                        new { Id = 3, BirthDate = new DateTime(1996, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Elisa", LastName = "Yammy" }
+                        new { Id = 1, BirthDate = new DateTime(1980, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), Created = new DateTime(2018, 11, 16, 10, 28, 14, 451, DateTimeKind.Local), FirstName = "James", LastName = "Sharp" },
+                        new { Id = 2, BirthDate = new DateTime(1992, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), Created = new DateTime(2018, 11, 16, 10, 28, 14, 451, DateTimeKind.Local), FirstName = "Sophie", LastName = "Netty" },
+                        new { Id = 3, BirthDate = new DateTime(1996, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), Created = new DateTime(2018, 11, 16, 10, 28, 14, 451, DateTimeKind.Local), FirstName = "Elisa", LastName = "Yammy" }
                     );
                 });
 
@@ -52,15 +56,23 @@ namespace BookService.WebApi.Migrations
 
                     b.Property<int?>("AuthorId");
 
+                    b.Property<DateTime?>("Created")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<string>("FileName");
 
                     b.Property<string>("ISBN");
 
                     b.Property<int>("NumberOfPages");
 
+                    b.Property<decimal>("Price");
+
                     b.Property<int?>("PublisherId");
 
                     b.Property<string>("Title");
+
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 
@@ -71,13 +83,13 @@ namespace BookService.WebApi.Migrations
                     b.ToTable("Book");
 
                     b.HasData(
-                        new { Id = 1, AuthorId = 1, FileName = "book1.jpg", ISBN = "123456789", NumberOfPages = 420, PublisherId = 1, Title = "Learning C#" },
-                        new { Id = 2, AuthorId = 2, FileName = "book2.jpg", ISBN = "45689132", NumberOfPages = 360, PublisherId = 1, Title = "Mastering Linq" },
-                        new { Id = 3, AuthorId = 1, FileName = "book3.jpg", ISBN = "15856135", NumberOfPages = 360, PublisherId = 1, Title = "Mastering Xamarin" },
-                        new { Id = 4, AuthorId = 2, FileName = "book1.jpg", ISBN = "56789564", NumberOfPages = 360, PublisherId = 1, Title = "Exploring ASP.Net Core 2.0" },
-                        new { Id = 5, AuthorId = 2, FileName = "book2.jpg", ISBN = "234546684", NumberOfPages = 420, PublisherId = 1, Title = "Unity Game Development" },
-                        new { Id = 6, AuthorId = 3, FileName = "book3.jpg", ISBN = "789456258", NumberOfPages = 40, PublisherId = 2, Title = "Cooking is fun" },
-                        new { Id = 7, AuthorId = 3, FileName = "book3.jpg", ISBN = "94521546", NumberOfPages = 53, PublisherId = 2, Title = "Secret recipes" }
+                        new { Id = 1, AuthorId = 1, FileName = "book1.jpg", ISBN = "123456789", NumberOfPages = 420, Price = 22.15m, PublisherId = 1, Title = "Learning C#", Year = 2010 },
+                        new { Id = 2, AuthorId = 2, FileName = "book2.jpg", ISBN = "45689132", NumberOfPages = 360, Price = 29.15m, PublisherId = 1, Title = "Mastering Linq", Year = 2001 },
+                        new { Id = 3, AuthorId = 1, FileName = "book3.jpg", ISBN = "15856135", NumberOfPages = 360, Price = 15.15m, PublisherId = 1, Title = "Mastering Xamarin", Year = 2005 },
+                        new { Id = 4, AuthorId = 2, FileName = "book1.jpg", ISBN = "56789564", NumberOfPages = 360, Price = 30.15m, PublisherId = 1, Title = "Exploring ASP.Net Core 2.0", Year = 2018 },
+                        new { Id = 5, AuthorId = 2, FileName = "book2.jpg", ISBN = "234546684", NumberOfPages = 420, Price = 28.15m, PublisherId = 1, Title = "Unity Game Development", Year = 2015 },
+                        new { Id = 6, AuthorId = 3, FileName = "book3.jpg", ISBN = "789456258", NumberOfPages = 40, Price = 15m, PublisherId = 2, Title = "Cooking is fun", Year = 2005 },
+                        new { Id = 7, AuthorId = 3, FileName = "book3.jpg", ISBN = "94521546", NumberOfPages = 53, Price = 18m, PublisherId = 2, Title = "Secret recipes", Year = 2010 }
                     );
                 });
 
@@ -89,6 +101,10 @@ namespace BookService.WebApi.Migrations
 
                     b.Property<string>("Country");
 
+                    b.Property<DateTime?>("Created")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -96,8 +112,8 @@ namespace BookService.WebApi.Migrations
                     b.ToTable("Publisher");
 
                     b.HasData(
-                        new { Id = 1, Country = "UK", Name = "IT-Publishers" },
-                        new { Id = 2, Country = "Sweden", Name = "FoodBooks" }
+                        new { Id = 1, Country = "UK", Created = new DateTime(2018, 11, 16, 10, 28, 14, 452, DateTimeKind.Local), Name = "IT-Publishers" },
+                        new { Id = 2, Country = "Sweden", Created = new DateTime(2018, 11, 16, 10, 28, 14, 452, DateTimeKind.Local), Name = "FoodBooks" }
                     );
                 });
 
