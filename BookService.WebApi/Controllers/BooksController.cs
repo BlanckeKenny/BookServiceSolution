@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using BookService.WebApi.DTO;
 using BookService.WebApi.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.WebApi.Controllers
@@ -23,25 +19,25 @@ namespace BookService.WebApi.Controllers
 
         // Get: api/Book
         [HttpGet]
-        public IActionResult GetBooks()
+        public async Task<IActionResult> GetBooks()
         {
-            return Ok(_repository.List());
+            return Ok( await _repository.GetAllInclusive());
         }
 
         // Get: api/Book/Basic
         [HttpGet]
         [Route("Basic")]
-        public IActionResult GetBookBasic()
+        public async Task<IActionResult> GetBookBasic()
         {
-            return Ok(_repository.ListbBasic());
+            return Ok(await _repository.ListbBasic());
         }
 
         // Get: api/books/6
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetBook(int id)
+        public async Task<IActionResult> GetBook(int id)
         {
-            return Ok(_repository.GetById(id));
+            return Ok( await _repository.GetById(id));
         }
 
         // Get: api/imagebyname/book2.jpg
@@ -57,9 +53,9 @@ namespace BookService.WebApi.Controllers
         // get: api/imagebyId/2
         [HttpGet]
         [Route("imagebyid/{id}")]
-        public IActionResult ImageById(int id)
+        public async Task<IActionResult> ImageById(int id)
         {
-            BookDetail book = _repository.GetById(id);
+            var book = await _repository.GetById(id);
             return ImageByName(book.FileName);
 
         }
