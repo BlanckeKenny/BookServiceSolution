@@ -12,31 +12,31 @@ namespace BookService.WebApi.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        private AuthorRepository _repositories;
+        private readonly AuthorRepository _repositories;
 
         public AuthorsController(AuthorRepository repositories)
         {
-            this._repositories = repositories;
+            _repositories = repositories;
         }
 
         // api/authors
-        public IActionResult GetAuthors()
+        public async Task<IActionResult> GetAuthors()
         {
-            return Ok(_repositories.List());
+            return Ok(await _repositories.ListAll());
         }
 
         // api/authors/basic
         [Route("Basic")]
-        public IActionResult GetAuthorBasic()
+        public async Task<IActionResult> GetAuthorBasic()
         {
-            return Ok(_repositories.GetAuthorBasic());
+            return Ok( await _repositories.ListBasic());
         }
 
         // api/authors/1
         [Route("{id}")]
-        public IActionResult GetAuthor(int id)
+        public async Task<IActionResult> GetAuthor(int id)
         {
-            return Ok(_repositories.GetById(id));
+            return Ok(await _repositories.GetById(id));
         }
     }
 }
