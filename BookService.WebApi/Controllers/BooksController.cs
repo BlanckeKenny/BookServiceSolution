@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using BookService.WebApi.DTO;
 using BookService.WebApi.Models;
 using BookService.WebApi.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.WebApi.Controllers
@@ -49,6 +49,23 @@ namespace BookService.WebApi.Controllers
             var book = await Repository.GetById(id);
             return ImageByName(book.FileName);
 
+        }
+
+        // POST api/books/image
+        [HttpPost]
+        [Route("Image")]
+        public async Task<IActionResult> Image(IFormFile formFile)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", formFile.FileName);
+
+            if (formFile.Length > 0)
+            {
+                using ( var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
+            }
+            return Ok(new {count = 1, formFile.Length});
         }
 
 

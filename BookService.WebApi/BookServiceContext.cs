@@ -16,6 +16,56 @@ namespace BookService.WebApi
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Reader>()
+                .ToTable("Reader")
+                .HasData(
+                    new Reader
+                    {
+                        Id = 1,
+                        FirstName = "trol",
+                        LastName = "brol",
+                    },
+                    new Reader
+                    {
+                        Id = 2,
+                        FirstName = "Kenny",
+                        LastName = "blancke"
+                    },
+                    new Reader
+                    {
+                        Id = 3,
+                        FirstName = "Jolande",
+                        LastName = "Minne",
+                    },
+                    new Reader
+                    {
+                        Id = 4,
+                        FirstName = "Luka",
+                        LastName = "Blancke"
+                    },
+                    new Reader
+                    {
+                        Id = 5,
+                        FirstName = "Louis",
+                        LastName = "Blancke"
+                    }
+                    );
+            modelBuilder.Entity<Rating>()
+                .ToTable("Rating")
+                .HasData(
+                    new Rating {Id = 1, ReaderId = 1, BookId = 1, Score = 5},
+                    new Rating {Id = 2, ReaderId = 1, BookId = 2, Score = 1},
+                    new Rating {Id = 3, ReaderId = 2, BookId = 2, Score = 3},
+                    new Rating {Id = 4, ReaderId = 3, BookId = 1, Score = 5},
+                    new Rating {Id = 5, ReaderId = 3, BookId = 3, Score = 5},
+                    new Rating {Id = 6, ReaderId = 2, BookId = 3, Score = 5},
+                    new Rating {Id = 7, ReaderId = 2, BookId = 2, Score = 5},
+                    new Rating {Id = 8, ReaderId = 1, BookId = 1, Score = 5}
+                );
+                    
+
+
+
            modelBuilder.Entity<Publisher>()
                 .ToTable("Publisher")
                 .HasData(
@@ -69,7 +119,8 @@ namespace BookService.WebApi
                         AuthorId = 1,
                         PublisherId = 1,
                         Price = 22.15M,
-                        Year = 2010
+                        Year = 2010,
+                        
                         
                     },
                     new
@@ -144,6 +195,14 @@ namespace BookService.WebApi
                         Price = 18M,
                         Year = 2010
                     });
+            modelBuilder.Entity<Reader>()
+                .Property(r => r.Created)
+                .HasDefaultValueSql("GetDate()")
+                .ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Rating>()
+                .Property(r => r.Created)
+                .HasDefaultValueSql("GetDate()")
+                .ValueGeneratedOnAddOrUpdate();
             modelBuilder.Entity<Book>()
                 .Property(p => p.Created)
                 .HasDefaultValueSql("GETDATE()")
@@ -162,5 +221,7 @@ namespace BookService.WebApi
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }  
+        public DbSet<Rating> Ratings { get; set; }  
+        public DbSet<Reader> Readers { get; set; }  
     }
 }
