@@ -20,29 +20,28 @@ namespace BookService.WebApi.Repositories
 
         public async Task<List<Book>> GetAllInclusive()
         {
-            var booklist = await Db.Books
+            return await GetAll()
                 .Include(a => a.Author)
                 .Include(a => a.Publisher)
                 .ToListAsync();
-            return booklist;
         }
 
 
         public async Task<List<BookBasic>> ListbBasic()
         {
             // returns a list of BookBasic DTO-Items (Id and Title only)
-            var bookBasic =  await Db.Books.Select(b => new BookBasic
+            return await Db.Books.Select(b => new BookBasic
             {
                 Id = b.Id,
                 Title = b.Title
             }).ToListAsync();
-            return bookBasic;
+
         }
 
 
         public async Task<BookDetail> GetDetailById(int id)
         {
-           var bookDetail =  await Db.Books.Select(a => new BookDetail
+           return await Db.Books.Select(a => new BookDetail
             {
                 Id = a.Id,
                 Title = a.Title,
@@ -56,7 +55,6 @@ namespace BookService.WebApi.Repositories
                 PublisherName = a.Publisher.Name,
                 Year = a.Year
             }).FirstOrDefaultAsync(b => b.Id == id);
-            return bookDetail;
         } 
     }
 }

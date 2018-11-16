@@ -17,12 +17,11 @@ namespace BookService.WebApi.Repositories
 
         public async Task<List<AuthorBasic>> ListBasic()
         {
-            var authors = await Db.Authors.Select(A => new AuthorBasic
+            return await Db.Authors.Select(A => new AuthorBasic
             {
                 Id = A.Id,
                 Name = $"{A.FirstName} {A.LastName}"
             }).ToListAsync();
-            return authors;
         }
     }
 }

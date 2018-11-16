@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using BookService.WebApi.DTO;
+using BookService.WebApi.Models;
 using BookService.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,20 +9,18 @@ namespace BookService.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BooksController : ControllerBase
+    public class BooksController : ControllerCrudBase<Book, BookRepository>
     {
-        private readonly BookRepository _repository;
 
-        public BooksController(BookRepository repository)
+        public BooksController(BookRepository repository)  :base (repository)
         {
-            _repository = repository;
         }
 
         // Get: api/Book
         [HttpGet]
-        public async Task<IActionResult> GetBooks()
+        public override async Task<IActionResult> Get()
         {
-            return Ok( await _repository.GetAllInclusive());
+            return Ok( await Repository.GetAllInclusive());
         }
 
         // Get: api/Book/Basic
@@ -29,18 +28,10 @@ namespace BookService.WebApi.Controllers
         [Route("Basic")]
         public async Task<IActionResult> GetBookBasic()
         {
-            return Ok(await _repository.ListbBasic());
+            return Ok(await Repository.ListbBasic());
         }
 
-        // Get: api/books/6
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetBook(int id)
-        {
-            return Ok( await _repository.GetById(id));
-        }
-
-        // Get: api/imagebyname/book2.jpg
+        // Get: api/books/imagebyname/book2.jpg
         [HttpGet]
         [Route("imagebyname/{filename}")]
         public IActionResult ImageByName(string filename)
@@ -50,12 +41,12 @@ namespace BookService.WebApi.Controllers
             return PhysicalFile(image, "image/jpeg");
         }
 
-        // get: api/imagebyId/2
+        // get: api/Books/imagebyId/2
         [HttpGet]
         [Route("imagebyid/{id}")]
         public async Task<IActionResult> ImageById(int id)
         {
-            var book = await _repository.GetById(id);
+            var book = await Repository.GetById(id);
             return ImageByName(book.FileName);
 
         }
