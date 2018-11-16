@@ -18,17 +18,19 @@ namespace BookService.WebApi.Controllers
 
 
         // api/publishers
-        public IActionResult GetPublishers()
+        public async Task<IActionResult> GetPublishers()
         {
-            return Ok(_repository.List());
+            var publishers = await _repository.ListAll();
+            return Ok(publishers);
         }
 
         // api/publishers/2
         [Route("{id}")]
-        public IActionResult GetPublisher(int id)
+        public async Task<IActionResult> GetPublisher(int id)
         {
-            return Ok(_repository.GetById(id));
+            return Ok(await _repository.GetById(id));
         }
+
 
         // put: api/Publishers/5
         [HttpPut("{id}")]
