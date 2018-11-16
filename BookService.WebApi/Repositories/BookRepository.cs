@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookService.WebApi.DTO;
 using BookService.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookService.WebApi.Repositories
@@ -35,11 +36,23 @@ namespace BookService.WebApi.Repositories
             }).ToList();
         }
 
-        public List<Book> GetById(int id)
+        public BookDetail GetById(int id)
         {
-            return db.Books.Where(a => a.Id == id).ToList();
+           return db.Books.Select(a => new BookDetail
+            {
+                Id = a.Id,
+                Title = a.Title,
+                AuthorId = a.Author.Id,
+                AuthorName = $"{a.Author.FirstName} {a.Author.LastName}",
+                FileName = a.FileName,
+                ISBN = a.ISBN,
+                NumberOfPages = a.NumberOfPages,
+                Price = a.Price,
+                PublisherId = a.Publisher.Id,
+                PublisherName = a.Publisher.Name,
+                Year = a.Year
+            }).FirstOrDefault(b => b.Id == id);
         }
-
 
     }
 }
