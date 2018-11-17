@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
-using BookService.WebApi.DTO;
-using BookService.WebApi.Models;
+using BookServiceLib.DTO;
+using BookServiceLib.Models;
 
 namespace BookService.WebApi.Services.AutoMapper
 {

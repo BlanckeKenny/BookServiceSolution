@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BookService.WebApi.Models;
+using BookServiceLib.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookService.WebApi.Repositories.Base

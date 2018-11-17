@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace BookService.WebApi.Models
+namespace BookServiceLib.Models
 {
     public class Book : EntityBase
     {
         public string Title { get; set; }
-        public string ISBN { get; set; }
-        [Display(Name = "#")]
+        public string Isbn { get; set; }
         public int NumberOfPages { get; set; }
         public int AuthorId { get; set; }
         public Author Author { get; set; }

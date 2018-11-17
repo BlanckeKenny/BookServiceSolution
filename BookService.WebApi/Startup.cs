@@ -1,4 +1,5 @@
-﻿using BookService.WebApi.Repositories;
+﻿using BookService.WebApi.Models;
+using BookService.WebApi.Repositories;
 using BookService.WebApi.Services.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

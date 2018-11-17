@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace BookService.WebApi.Models
+namespace BookServiceLib.Models
 {
     public class Author : EntityBase
     {

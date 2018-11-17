@@ -1,5 +1,6 @@
 ﻿using BookService.WebApi.Models;
 using BookService.WebApi.Repositories.Base;
+using BookServiceLib.Models;
 
 namespace BookService.WebApi.Repositories
 {

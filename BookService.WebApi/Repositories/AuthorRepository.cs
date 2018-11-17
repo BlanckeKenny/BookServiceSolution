@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookService.WebApi.DTO;
 using BookService.WebApi.Models;
 using BookService.WebApi.Repositories.Base;
+using BookServiceLib.DTO;
+using BookServiceLib.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookService.WebApi.Repositories

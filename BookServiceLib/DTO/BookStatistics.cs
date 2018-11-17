@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BookService.WebApi.DTO
+﻿namespace BookServiceLib.DTO
 {
     public class BookStatistics
     {
