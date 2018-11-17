@@ -45,6 +45,15 @@ namespace BookService.WebApi.Repositories
                     .Include(a => a.Publisher)
                     .FirstOrDefaultAsync(a => a.Id == id)
             );
-        } 
+        }
+
+        public async Task<List<BookStatistics>> GetStatistics()
+        {
+            return await Db.Books
+                .Include(b => b.Ratings)
+                .Where(b => b.Ratings.Count > 0)
+                .ProjectTo<BookStatistics>(Mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
     }
 }

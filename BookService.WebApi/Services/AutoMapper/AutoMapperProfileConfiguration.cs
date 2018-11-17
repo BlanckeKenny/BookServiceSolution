@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using BookService.WebApi.DTO;
 using BookService.WebApi.Models;
 
@@ -17,6 +18,13 @@ namespace BookService.WebApi.Services.AutoMapper
                     .ForMember(
                         dest => dest.AuthorName,
                         from => from.MapFrom(src => $"{src.Author.FirstName} {src.Author.LastName}"));
+                CreateMap<Book, BookStatistics>()
+                    .ForMember(
+                        dest => dest.RatingCount,
+                        from => from.MapFrom(src => src.Ratings.Count))
+                    .ForMember(
+                        dest => dest.ScoreAverage,
+                        from => from.MapFrom(src => src.Ratings.Average(a => a.Score)));
             }
         }
     }
