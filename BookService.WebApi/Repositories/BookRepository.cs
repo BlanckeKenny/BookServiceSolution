@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BookService.WebApi.DTO;
 using BookService.WebApi.Models;
-using Microsoft.AspNetCore.Mvc;
+using BookService.WebApi.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookService.WebApi.Repositories
 {
-    public class BookRepository : Repository<Book>
+    public class BookRepository : MappingRepository<Book>
     {
 
-        public BookRepository(BookServiceContext context) : base(context)
+        public BookRepository(BookServiceContext context, IMapper mapper) : base(context, mapper)
         {
 
         }
@@ -30,31 +31,20 @@ namespace BookService.WebApi.Repositories
         public async Task<List<BookBasic>> ListbBasic()
         {
             // returns a list of BookBasic DTO-Items (Id and Title only)
-            return await Db.Books.Select(b => new BookBasic
-            {
-                Id = b.Id,
-                Title = b.Title
-            }).ToListAsync();
-
+            return await Db.Books
+                .ProjectTo<BookBasic>(Mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
 
         public async Task<BookDetail> GetDetailById(int id)
         {
-           return await Db.Books.Select(a => new BookDetail
-            {
-                Id = a.Id,
-                Title = a.Title,
-                AuthorId = a.Author.Id,
-                AuthorName = $"{a.Author.FirstName} {a.Author.LastName}",
-                FileName = a.FileName,
-                ISBN = a.ISBN,
-                NumberOfPages = a.NumberOfPages,
-                Price = a.Price,
-                PublisherId = a.Publisher.Id,
-                PublisherName = a.Publisher.Name,
-                Year = a.Year
-            }).FirstOrDefaultAsync(b => b.Id == id);
+            return Mapper.Map<BookDetail>(
+                await Db.Books
+                    .Include(b => b.Author)
+                    .Include(a => a.Publisher)
+                    .FirstOrDefaultAsync(a => a.Id == id)
+            );
         } 
     }
 }

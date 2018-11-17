@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BookService.WebApi.Models;
 
-namespace BookService.WebApi.Repositories
+namespace BookService.WebApi.Repositories.Base
 {
     public interface IRepository<T> where T: EntityBase
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BookService.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookService.WebApi.Repositories
+namespace BookService.WebApi.Repositories.Base
 {
     public class Repository<T> : IRepository<T> where T : EntityBase
     {

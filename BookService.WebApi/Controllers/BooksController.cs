@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using BookService.WebApi.DTO;
 using BookService.WebApi.Models;
 using BookService.WebApi.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,15 @@ namespace BookService.WebApi.Controllers
         public async Task<IActionResult> GetBookBasic()
         {
             return Ok(await Repository.ListbBasic());
+        }
+
+        // GET: api/Books/Detail/6
+        [HttpGet]
+        [Route("Detail/{id}")]
+        public async Task<IActionResult> GetBookDetail(int id)
+        {
+            return Ok(await Repository.GetDetailById(id));
+
         }
 
         // Get: api/books/imagebyname/book2.jpg
