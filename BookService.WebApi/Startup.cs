@@ -29,6 +29,8 @@ namespace BookService.WebApi
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<BookServiceContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Bookservice")));
@@ -51,6 +53,11 @@ namespace BookService.WebApi
             {
                 app.UseHsts();
             }
+            app.UseCors(
+                builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
 
             app.UseHttpsRedirection();
             app.UseMvc();

@@ -12,11 +12,11 @@ namespace BookService.WebApi.Controllers
     public class BooksController : ControllerCrudBase<Book, BookRepository>
     {
 
-        public BooksController(BookRepository repository)  :base (repository)
+        public BooksController(BookRepository bookEepository)  :base (bookEepository)
         {
         }
 
-        // Get: api/Book
+        // Get: api/Books
         [HttpGet]
         public override async Task<IActionResult> Get()
         {
@@ -40,12 +40,13 @@ namespace BookService.WebApi.Controllers
 
         }
 
-        // Get: api/Books/Statistics
-        [HttpGet]
-        [Route("Statistics")]
-        public async Task<IActionResult> GetBookStatistics()
+        [HttpPost]
+        public override async Task<IActionResult> Post([FromBody] Book book)
         {
-            return Ok(await Repository.GetStatistics());
+            book.Author = null;
+            book.Publisher = null;
+
+            return await base.Post(book);
         }
 
         // Get: api/books/imagebyname/book2.jpg
@@ -85,6 +86,13 @@ namespace BookService.WebApi.Controllers
             return Ok(new {count = 1, formFile.Length});
         }
 
+        // Get: api/Books/Statistics
+        [HttpGet]
+        [Route("Statistics")]
+        public async Task<IActionResult> GetBookStatistics()
+        {
+            return Ok(await Repository.GetStatistics());
+        }
 
     }
 }

@@ -43,10 +43,10 @@ namespace BookService.WebApi.Controllers
 
         // POST: api/T
         [HttpPost]
-        public async Task<IActionResult> PostPublisher([FromBody] T entity)
+        public virtual async Task<IActionResult> Post([FromBody] T entity)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var e = await Repository.Add(entity);
+            T e = await Repository.Add(entity);
             if (e == null) return NotFound();
             return CreatedAtAction("Get", new {id = entity.Id}, entity);
         }

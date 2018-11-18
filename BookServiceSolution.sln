@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.WebApi", "BookS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Lib", "BookServiceLib\BookService.Lib.csproj", "{0D450B4C-F4A0-4F55-90F8-8642545A1E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookservice.MVC", "Bookservice.MVC\Bookservice.MVC.csproj", "{DC0C6113-CEB4-4711-87ED-2E4BA3994D43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookservice.MVC", "Bookservice.MVC\Bookservice.MVC.csproj", "{DC0C6113-CEB4-4711-87ED-2E4BA3994D43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,6 +21,11 @@ namespace Bookservice.MVC.Controllers
             return View(WebApiHelper.GetApiResult<List<BookBasic>>(basicBookUri));
         }
 
+        public IActionResult IndexVue()
+        {
+            return View();
+        }
+
         public IActionResult Detail(int id)
         {
             var geekJokesUri = "https://geek-jokes.sameerkumar.website/api";
