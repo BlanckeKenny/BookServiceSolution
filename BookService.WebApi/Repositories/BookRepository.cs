@@ -31,9 +31,11 @@ namespace BookService.WebApi.Repositories
 
         public async Task<List<BookBasic>> ListbBasic()
         {
-            // returns a list of BookBasic DTO-Items (Id and Title only)
+            // returns a list of BookBasic DTO-Items (Id and Title only) using automapper and sort by title
+
             return await Db.Books
                 .ProjectTo<BookBasic>(Mapper.ConfigurationProvider)
+                .OrderBy(b => b.Title)
                 .ToListAsync();
         }
 
