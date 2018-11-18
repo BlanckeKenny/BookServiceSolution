@@ -18,7 +18,7 @@ namespace Bookservice.MVC.Controllers
         public IActionResult Index()
         {
             var basicBookUri = $"{BaseBookUri}/basic";
-            return View(GetApiResultHelper.GetApiResult<List<BookBasic>>(basicBookUri));
+            return View(WebApiHelper.GetApiResult<List<BookBasic>>(basicBookUri));
         }
 
         public IActionResult Detail(int id)
@@ -29,8 +29,8 @@ namespace Bookservice.MVC.Controllers
 
             return View( new BookDetailExtraViewModel
             {
-                BookDetail = GetApiResultHelper.GetApiResult<BookDetail>(bookUri),
-                AuthorJoke = GetApiResultHelper.GetApiResult<string>(geekJokesUri),
+                BookDetail = WebApiHelper.GetApiResult<BookDetail>(bookUri),
+                AuthorJoke = WebApiHelper.GetApiResult<string>(geekJokesUri),
                 BookSummary = new HttpClient().GetStringAsync(ipsumUri).Result
             });
         }
