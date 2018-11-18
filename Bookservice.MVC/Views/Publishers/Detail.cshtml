@@ -1,0 +1,15 @@
+﻿@using Bookservice.MVC.Models
+@model BookServiceLib.Models.Publisher
+
+
+<h1>Publisher details</h1>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <ul>
+            <li>@Model.Id</li>
+            <li>@Model.Name</li>
+            <li>@Model.Country</li>
+        </ul>
+    </div>
+    <div class="panel-footer"><a asp-controller="Publishers" asp-action="Index" class="btn btn-primary">Back to list</a></div>
+</div>

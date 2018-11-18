@@ -16,9 +16,7 @@
             Summary:<br />
             <small><i>@Model.BookSummary <br />...</i></small>
         </p>
-        <p><i>&copy; @Model.BookDetail.Year
-            @Model.BookDetail.PublisherName</i></p>
+        <p>&copy; @Model.BookDetail.Year <a asp-controller="Publishers" asp-action="Detail" asp-route-id="@Model.BookDetail.PublisherId">@Model.BookDetail.PublisherName</a></p>
     </div>
-    <div class="panel-footer"><a asp-controller="Books" asp-action="Index"
-                                 class="btn btn-primary">Back to list</a></div>
+    <div class="panel-footer"><a asp-controller="Books" asp-action="Index" class="btn btn-primary">Back to list</a></div>
 </div>

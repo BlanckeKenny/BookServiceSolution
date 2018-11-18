@@ -4,10 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Bookservice.MVC.Models;
+using BookService.Lib.Helpers;
 using BookServiceLib.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-
 namespace Bookservice.MVC.Controllers
 {
     public class BooksController : Controller
@@ -19,16 +18,7 @@ namespace Bookservice.MVC.Controllers
         public IActionResult Index()
         {
             var basicBookUri = $"{BaseBookUri}/basic";
-            return View(GetApiResult<List<BookBasic>>(basicBookUri));
-        }
-
-        public T GetApiResult<T>(string uri)
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<string> response = httpClient.GetStringAsync(uri);
-                return Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(response.Result)).Result;
-            }
+            return View(GetApiResultHelper.GetApiResult<List<BookBasic>>(basicBookUri));
         }
 
         public IActionResult Detail(int id)
@@ -39,8 +29,8 @@ namespace Bookservice.MVC.Controllers
 
             return View( new BookDetailExtraViewModel
             {
-                BookDetail = GetApiResult<BookDetail>(bookUri),
-                AuthorJoke = GetApiResult<string>(geekJokesUri),
+                BookDetail = GetApiResultHelper.GetApiResult<BookDetail>(bookUri),
+                AuthorJoke = GetApiResultHelper.GetApiResult<string>(geekJokesUri),
                 BookSummary = new HttpClient().GetStringAsync(ipsumUri).Result
             });
         }
